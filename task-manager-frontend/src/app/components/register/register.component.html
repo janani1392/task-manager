@@ -1,0 +1,91 @@
+<div class="auth-container">
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="auth-form">
+      <h2>Register</h2>
+      
+      <div class="form-group">
+        <input 
+          type="text" 
+          [(ngModel)]="user.name" 
+          name="name"
+          placeholder="Name"
+          required
+          #name="ngModel"
+          class="form-control"
+        />
+        <div class="error-message" *ngIf="name.invalid && (name.dirty || name.touched)">
+          Name is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <input 
+          type="email" 
+          [(ngModel)]="user.email" 
+          name="email"
+          placeholder="Email"
+          required
+          email
+          #email="ngModel"
+          class="form-control"
+        />
+        <div class="error-message" *ngIf="email.invalid && (email.dirty || email.touched)">
+          Please enter a valid email
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <input 
+          type="password" 
+          [(ngModel)]="user.password" 
+          name="password"
+          placeholder="Password"
+          required
+          (input)="checkPasswordStrength()"
+          class="form-control"
+          #password="ngModel"
+        />
+        
+        <!-- Password Requirements -->
+        <div class="password-requirements" [class.active]="password.dirty || password.touched">
+          <h4>Password Requirements:</h4>
+          <ul>
+            <li [class.met]="passwordChecks.length">At least 8 characters</li>
+            <li [class.met]="passwordChecks.uppercase">One uppercase letter</li>
+            <li [class.met]="passwordChecks.lowercase">One lowercase letter</li>
+            <li [class.met]="passwordChecks.number">One number</li>
+            <li [class.met]="passwordChecks.special">One special character</li>
+          </ul>
+        </div>
+        
+        <!-- Password Strength Indicator -->
+        <div class="password-strength" *ngIf="password.dirty || password.touched">
+          <div class="strength-bar">
+            <div 
+              class="strength-fill" 
+              [style.width.%]="passwordStrength" 
+              [class]="getStrengthClass()"
+            ></div>
+          </div>
+          <span class="strength-text">{{getStrengthText()}}</span>
+        </div>
+      </div>
+  
+      <button 
+        type="submit" 
+        class="btn-submit" 
+        [disabled]="registerForm.invalid || !isPasswordValid() || isLoading"
+      >
+        {{isLoading ? 'Registering...' : 'Register'}}
+      </button>
+  
+      <div *ngIf="error" class="error-message alert">
+        <ul>
+          <li *ngFor="let err of getErrorList()">{{err}}</li>
+        </ul>
+      </div>
+  
+      <p class="auth-links">
+        Already have an account? <a [routerLink]="['/login']">Login</a>
+      </p>
+    </form>
+  </div>

@@ -1,0 +1,12 @@
+<div class="container">
+  <ng-container *ngIf="shouldShowHeader">
+    <header>
+      <h1>Task Manager</h1>
+      <div class="header-actions">
+        <span>Welcome, {{ currentUserName }}</span>
+        <button (click)="logout()" class="btn-logout">Logout</button>
+      </div>
+    </header>
+  </ng-container>
+  <router-outlet></router-outlet>
+</div>

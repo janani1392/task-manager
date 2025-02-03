@@ -1,0 +1,66 @@
+<div class="task-list">
+  <div *ngFor="let task of tasks" class="task-item" [ngClass]="{'completed': task.completed}">
+    <!-- Edit Mode -->
+    <div *ngIf="editingTask?._id === task._id" class="edit-form">
+      <div class="edit-form-row">
+        <input
+          type="text"
+          [(ngModel)]="editingTask!.name"
+          class="form-control"
+          placeholder="Task name"
+        />
+      </div>
+      <div class="edit-form-row">
+        <textarea
+          [(ngModel)]="editingTask!.description"
+          class="form-control"
+          placeholder="Task description"
+        ></textarea>
+      </div>
+      <div class="edit-form-row">
+        <select 
+          [(ngModel)]="editingTask!.priority"
+          class="form-control"
+        >
+          <option value="low">Low Priority</option>
+          <option value="medium">Medium Priority</option>
+          <option value="high">High Priority</option>
+        </select>
+      </div>
+      <div class="edit-form-row">
+        <input 
+          type="date" 
+          [(ngModel)]="editingTask!.dueDate"
+          class="form-control"
+        />
+      </div>
+      <div class="button-group">
+        <button class="btn-save" (click)="saveTask()">Save</button>
+        <button class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- View Mode -->
+    <div *ngIf="editingTask?._id !== task._id" class="task-content">
+      <div class="task-header">
+        <input 
+          type="checkbox" 
+          [checked]="task.completed"
+          (change)="toggleComplete(task)"
+        />
+        <h3>{{ task.name }}</h3>
+        <span class="priority-badge" [ngClass]="task.priority">
+          {{ task.priority }}
+        </span>
+      </div>
+      <p class="description" *ngIf="task.description">{{ task.description }}</p>
+      <p class="due-date" *ngIf="task.dueDate">
+        Due: {{ task.dueDate | date }}
+      </p>
+      <div class="button-group">
+        <button class="btn-edit" (click)="startEdit(task)">Edit</button>
+        <button class="btn-delete" (click)="deleteTask(task)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

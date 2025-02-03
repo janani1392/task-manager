@@ -1,0 +1,66 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# Build output
+dist/
+tmp/
+out-tsc/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDEs and editors
+.idea/
+.vscode/
+.history/
+*.swp
+*.swo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Debugging files
+*.log
+
+# Miscellaneous
+libpeerconnection.log
+connect.lock
+
+# Database-related files
+*.sqlite
+*.db
+*.sql
+
+# Security-related files
+*.pem
+*.key
+*.crt
+*.p12
+
+# Other files
+*.bak
+*.old
+*.orig
+
+# Ignore node_modules
+node_modules/
+
+# Ignore Angular build cache
+.angular/

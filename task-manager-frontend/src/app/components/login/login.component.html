@@ -1,0 +1,54 @@
+<div class="auth-container">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="auth-form">
+      <h2>Login</h2>
+      
+      <div class="form-group">
+        <input 
+          type="email" 
+          [(ngModel)]="credentials.email" 
+          name="email"
+          placeholder="Email"
+          required
+          #email="ngModel"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          class="form-control"
+          [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+        />
+        <div class="error-message" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div *ngIf="email.errors?.['required']">Email is required</div>
+          <div *ngIf="email.errors?.['pattern']">Please enter a valid email</div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <input 
+          type="password" 
+          [(ngModel)]="credentials.password" 
+          name="password"
+          placeholder="Password"
+          required
+          #password="ngModel"
+          class="form-control"
+          [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+        />
+        <div class="error-message" *ngIf="password.invalid && (password.dirty || password.touched)">
+          <div *ngIf="password.errors?.['required']">Password is required</div>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn-submit" [disabled]="loginForm.invalid || isLoading">
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+  
+      <div *ngIf="error" class="error-message alert">
+        {{ error }}
+        <a *ngIf="error.includes('not registered')" [routerLink]="['/register']" class="register-link">
+          Register now
+        </a>
+      </div>
+  
+      <p class="auth-links">
+        Don't have an account? <a [routerLink]="['/register']">Register</a>
+      </p>
+    </form>
+  </div>

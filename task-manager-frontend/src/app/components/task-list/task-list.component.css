@@ -1,0 +1,118 @@
+.task-list {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.task-item {
+  background: white;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.task-item.completed {
+  background: #f8f9fa;
+  opacity: 0.8;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* New edit form styles */
+.edit-form {
+  display: grid;
+  grid-gap: 15px;
+  padding: 15px 0;
+}
+
+.edit-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.edit-form input[type="text"],
+.edit-form textarea,
+.edit-form select,
+.edit-form input[type="date"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.edit-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.priority-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.priority-badge.high {
+  background: #dc3545;
+  color: white;
+}
+
+.priority-badge.medium {
+  background: #ffc107;
+  color: black;
+}
+
+.priority-badge.low {
+  background: #28a745;
+  color: white;
+}
+
+.description {
+  color: #666;
+  margin: 10px 0;
+}
+
+.due-date {
+  color: #888;
+  font-size: 14px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-edit, .btn-delete, .btn-save, .btn-cancel {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-save {
+  background: #28a745;
+  color: white;
+}
+
+.btn-cancel {
+  background: #6c757d;
+  color: white;
+}
