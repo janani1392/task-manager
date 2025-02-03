@@ -1,38 +1,58 @@
+<div class="task-controls">
+  <!-- Search -->
+  <div class="search-box">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearchChange($event)"
+      placeholder="Search tasks..."
+      class="search-input"
+    />
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-controls">
+    <select [(ngModel)]="filterStatus" (change)="onFilterChange()" class="filter-select">
+      <option value="all">All Tasks</option>
+      <option value="active">Active Tasks</option>
+      <option value="completed">Completed Tasks</option>
+    </select>
+
+    <select [(ngModel)]="sortBy" (change)="onSortChange()" class="sort-select">
+      <option value="dueDate">Sort by Due Date</option>
+      <option value="priority">Sort by Priority</option>
+      <option value="name">Sort by Name</option>
+    </select>
+
+    <button 
+      (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; onSortChange()"
+      class="sort-direction-btn"
+    >
+      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+    </button>
+  </div>
+</div>
+
+
 <div class="task-list">
-  <div *ngFor="let task of tasks" class="task-item" [ngClass]="{'completed': task.completed}">
+  <div *ngFor="let task of filteredTasks" class="task-item" [ngClass]="{'completed': task.completed}">
     <!-- Edit Mode -->
     <div *ngIf="editingTask?._id === task._id" class="edit-form">
       <div class="edit-form-row">
-        <input
-          type="text"
-          [(ngModel)]="editingTask!.name"
-          class="form-control"
-          placeholder="Task name"
-        />
+        <input type="text" [(ngModel)]="editingTask!.name" class="form-control" placeholder="Task name" />
       </div>
       <div class="edit-form-row">
-        <textarea
-          [(ngModel)]="editingTask!.description"
-          class="form-control"
-          placeholder="Task description"
-        ></textarea>
+        <textarea [(ngModel)]="editingTask!.description" class="form-control" placeholder="Task description"></textarea>
       </div>
       <div class="edit-form-row">
-        <select 
-          [(ngModel)]="editingTask!.priority"
-          class="form-control"
-        >
+        <select [(ngModel)]="editingTask!.priority" class="form-control">
           <option value="low">Low Priority</option>
           <option value="medium">Medium Priority</option>
           <option value="high">High Priority</option>
         </select>
       </div>
       <div class="edit-form-row">
-        <input 
-          type="date" 
-          [(ngModel)]="editingTask!.dueDate"
-          class="form-control"
-        />
+        <input type="date" [(ngModel)]="editingTask!.dueDate" class="form-control" />
       </div>
       <div class="button-group">
         <button class="btn-save" (click)="saveTask()">Save</button>
@@ -43,11 +63,7 @@
     <!-- View Mode -->
     <div *ngIf="editingTask?._id !== task._id" class="task-content">
       <div class="task-header">
-        <input 
-          type="checkbox" 
-          [checked]="task.completed"
-          (change)="toggleComplete(task)"
-        />
+        <input type="checkbox" [checked]="task.completed" (change)="toggleComplete(task)" />
         <h3>{{ task.name }}</h3>
         <span class="priority-badge" [ngClass]="task.priority">
           {{ task.priority }}
@@ -60,6 +76,8 @@
       <div class="button-group">
         <button class="btn-edit" (click)="startEdit(task)">Edit</button>
         <button class="btn-delete" (click)="deleteTask(task)">Delete</button>
+        <input type="checkbox" [checked]="task.completed" (change)="toggleComplete(task)"
+          [attr.data-task-id]="task._id" />
       </div>
     </div>
   </div>
