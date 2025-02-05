@@ -221,3 +221,8 @@
   padding: 20px;
   color: #666;
 }
+
+app-task-form {
+  display: block;
+  margin-bottom: 20px;
+}
